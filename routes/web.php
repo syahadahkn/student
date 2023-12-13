@@ -21,5 +21,4 @@ Route::get('/', function () {
     return redirect(route('auth.login'));
 });
 
-
-Route::resource('/student', StudentController::class);
+Route::resource("student", StudentController::class);

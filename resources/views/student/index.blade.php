@@ -2,20 +2,18 @@
 @section('content')
     <div class="container">
         <div class="row">
-
+ 
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
                         <h2>Laravel 9 Crud</h2>
                     </div>
                     <div class="card-body">
-                        {{-- button add --}}
-                        <a href="" class=" btn btn-success btn-sm" title="Add New Student">
+                        <a href="{{ url('/student/create') }}" class="btn btn-success btn-sm" title="Add New Student">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -28,27 +26,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                @foreach($students as $item)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Alexander</td>
-                                        <td>New York</td>
-                                        <td>+18976290</td>
-                                        <td></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->mobile }}</td>
+ 
+                                        <td>
+                                            <a href="{{ url('/student/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/student/' . $item->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+ 
+                                            <form method="POST" action="{{ url('/student' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ method_field('DELETE') }}
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Student" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Michale</td>
-                                        <td>London</td>
-                                        <td>+37683570</td>
-                                        <td></td>
-                                    </tr>
-
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
-
+ 
                     </div>
                 </div>
             </div>
